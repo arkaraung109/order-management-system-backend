@@ -59,8 +59,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void delete(CategoryDto categoryDto) {
-        this.categoryRepository.delete(this.modelMapper.map(categoryDto, Category.class));
+    public void deleteById(Long id) {
+        this.categoryRepository.deleteById(id);
     }
 
 }

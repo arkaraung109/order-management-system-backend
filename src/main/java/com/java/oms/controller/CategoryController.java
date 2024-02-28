@@ -86,7 +86,7 @@ public class CategoryController {
         CategoryDto categoryDto = this.categoryService.findById(id);
 
         // Category is deleted
-        this.categoryService.delete(categoryDto);
+        this.categoryService.deleteById(id);
 
         HttpResponse response = HttpResponse.builder()
                 .status(HttpStatus.OK.value())
