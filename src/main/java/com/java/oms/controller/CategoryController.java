@@ -3,6 +3,7 @@ package com.java.oms.controller;
 import com.java.oms.dto.CategoryDto;
 import com.java.oms.dto.HttpResponse;
 import com.java.oms.dto.PaginationResponse;
+import com.java.oms.dto.RoleDto;
 import com.java.oms.exception.DuplicatedException;
 import com.java.oms.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @RestController
@@ -25,6 +27,13 @@ public class CategoryController {
     public ResponseEntity<CategoryDto> findById(@RequestParam("id") Long id) {
         // Find category by id
         return ResponseEntity.status(HttpStatus.OK).body(this.categoryService.findById(id));
+    }
+
+    @GetMapping("/findAll")
+    @PreAuthorize(value = "hasAnyAuthority('ADMIN')")
+    public ResponseEntity<List<CategoryDto>> findAll() {
+        // Find all categories
+        return ResponseEntity.status(HttpStatus.OK).body(this.categoryService.findAll());
     }
 
     @GetMapping("/findPage")
@@ -86,7 +95,7 @@ public class CategoryController {
         CategoryDto categoryDto = this.categoryService.findById(id);
 
         // Category is deleted
-        this.categoryService.delete(categoryDto);
+        this.categoryService.deleteById(id);
 
         HttpResponse response = HttpResponse.builder()
                 .status(HttpStatus.OK.value())

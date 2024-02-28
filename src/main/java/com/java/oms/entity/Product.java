@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -23,5 +25,11 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<ManufacturingCost> manufacturingCostList;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<RetailPrice> retailPriceList;
 
 }

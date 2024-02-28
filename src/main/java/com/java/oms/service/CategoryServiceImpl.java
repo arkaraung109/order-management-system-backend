@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -34,6 +35,11 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryDto findById(Long id) {
         Optional<Category> optional = this.categoryRepository.findById(id);
         return optional.map((category) -> this.modelMapper.map(category, CategoryDto.class)).orElseThrow(() -> new NotFoundException("Category is not found."));
+    }
+
+    @Override
+    public List<CategoryDto> findAll() {
+        return this.categoryRepository.findAll().stream().map((category) -> this.modelMapper.map(category, CategoryDto.class)).collect(Collectors.toList());
     }
 
     @Override
@@ -59,8 +65,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void delete(CategoryDto categoryDto) {
-        this.categoryRepository.delete(this.modelMapper.map(categoryDto, Category.class));
+    public void deleteById(Long id) {
+        this.categoryRepository.deleteById(id);
     }
 
 }
