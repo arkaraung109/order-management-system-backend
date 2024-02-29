@@ -11,6 +11,9 @@ public class RetailPriceConverter extends AbstractConverter<List<RetailPrice>, L
 
     @Override
     protected Long convert(List<RetailPrice> retailPriceList) {
+        if(retailPriceList.isEmpty()) {
+            return null;
+        }
         return Collections.max(retailPriceList, Comparator.comparing(RetailPrice::getCreationTimestamp)).getPrice();
     }
 

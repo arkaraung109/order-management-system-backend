@@ -11,6 +11,9 @@ public class ManufacturingCostConverter extends AbstractConverter<List<Manufactu
 
     @Override
     protected Long convert(List<ManufacturingCost> manufacturingCostList) {
+        if(manufacturingCostList.isEmpty()) {
+            return null;
+        }
         return Collections.max(manufacturingCostList, Comparator.comparing(ManufacturingCost::getCreationTimestamp)).getCost();
     }
 

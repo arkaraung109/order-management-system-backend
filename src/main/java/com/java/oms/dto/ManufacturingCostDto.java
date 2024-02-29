@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -18,7 +18,7 @@ public class ManufacturingCostDto implements Serializable {
 
     private Long cost;
 
-    private LocalDate updatedDate;
+    private LocalDateTime creationTimestamp;
 
     private ProductDto product;
 
